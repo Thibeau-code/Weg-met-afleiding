@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ontdek waarom gsm-gebruik in het verkeer gevaarlijk is en hoe je veilig onderweg blijft.">
+  <title>Focus op de Weg | Geen gsm in het verkeer</title>
+  <style>
+    :root {
+      --navy: #10233f;
+      --blue: #2457e6;
+      --sky: #eaf1ff;
+      --yellow: #ffd84d;
+      --ink: #18243a;
+      --muted: #5c6880;
+      --white: #fff;
+      --paper: #f7f9fc;
+      --line: #e1e7f0;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .topbar {
+      background: var(--navy);
+      color: white;
+      padding: 10px 5vw;
+      font-size: .9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: 1160px;
+      margin: auto;
+      padding: 15px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      font-weight: 900;
+      font-size: 1.15rem;
+      letter-spacing: -.4px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--yellow);
+      color: var(--navy);
+      font-size: 1.25rem;
+    }
+    nav { display: flex; gap: 22px; align-items: center; }
+    nav a { text-decoration: none; color: #43516b; font-weight: 700; font-size: .93rem; }
+    nav a:hover { color: var(--blue); }
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-weight: 800;
+      border: 0;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 9px 24px #2457e633; }
+    .button.yellow { background: var(--yellow); color: var(--navy); }
+    .hero {
+      overflow: hidden;
+      background: linear-gradient(125deg, #10233f 0%, #183a72 65%, #2457e6 100%);
+      color: white;
+      position: relative;
+    }
+    .hero-inner {
+      max-width: 1160px;
+      margin: auto;
+      padding: 82px 24px 88px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 50px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-block;
+      background: #ffffff18;
+      border: 1px solid #ffffff35;
+      border-radius: 100px;
+      padding: 7px 12px;
+      font-size: .83rem;
+      font-weight: 800;
+      letter-spacing: .4px;
+      margin-bottom: 18px;
+    }
+    h1 { font-size: clamp(2.8rem, 6vw, 5.2rem); line-height: .99; letter-spacing: -3px; margin: 0 0 22px; }
+    h1 span { color: var(--yellow); }
+    .hero p { font-size: 1.15rem; max-width: 560px; color: #e1e9f8; margin: 0 0 28px; }
+    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-art {
+      min-height: 340px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .circle {
+      width: min(330px, 78vw);
+      aspect-ratio: 1;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 25px 70px #07152b66;
+      transform: rotate(-7deg);
+    }
+    .phone {
+      width: 142px;
+      height: 245px;
+      background: #f9fbff;
+      border: 9px solid #17243a;
+      border-radius: 28px;
+      transform: rotate(7deg);
+      box-shadow: 0 12px 0 #0d1c33;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--navy);
+      position: relative;
+    }
+    .phone:before { content: ""; width: 44px; height: 5px; background: #17243a; border-radius: 8px; position: absolute; top: 7px; }
+    .phone-icon { font-size: 3.6rem; }
+    .phone-label { font-size: .76rem; font-weight: 900; text-align: center; padding: 0 8px; }
+    .no-symbol {
+      position: absolute;
+      width: 185px;
+      height: 185px;
+      border: 15px solid #e84141;
+      border-radius: 50%;
+      transform: rotate(-30deg);
+    }
+    .no-symbol:after { content: ""; height: 17px; width: 215px; background: #e84141; position: absolute; top: 69px; left: -30px; border-radius: 10px; }
+    .floating-note {
+      position: absolute;
+      background: white;
+      color: var(--navy);
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 900;
+      box-shadow: 0 10px 30px #07152b33;
+    }
+    .note-one { top: 25px; right: 0; transform: rotate(4deg); }
+    .note-two { bottom: 15px; left: 0; transform: rotate(-4deg); }
+    section { padding: 78px 24px; }
+    .container { max-width: 1100px; margin: auto; }
+    .section-heading { max-width: 700px; margin-bottom: 34px; }
+    .kicker { color: var(--blue); text-transform: uppercase; font-size: .78rem; letter-spacing: 1.5px; font-weight: 900; }
+    h2 { color: var(--navy); font-size: clamp(2rem, 4vw, 3.1rem); letter-spacing: -1.3px; line-height: 1.08; margin: 9px 0 14px; }
+    .section-heading p { color: var(--muted); font-size: 1.08rem; margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 26px;
+      box-shadow: 0 8px 25px #10233f08;
+    }
+    .card-icon { width: 52px; height: 52px; border-radius: 15px; display: grid; place-items: center; background: var(--sky); font-size: 1.6rem; margin-bottom: 18px; }
+    .card h3 { color: var(--navy); font-size: 1.2rem; margin: 0 0 8px; }
+    .card p { color: var(--muted); margin: 0; }
+    .dark-section { background: var(--navy); color: white; }
+    .dark-section h2 { color: white; }
+    .dark-section .section-heading p { color: #c7d3e8; }
+    .fact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 50px; align-items: center; }
+    .fact-panel {
+      background: #1b3458;
+      border: 1px solid #ffffff20;
+      border-radius: 24px;
+      padding: 30px;
+    }
+    .big-stat { color: var(--yellow); font-size: clamp(3.6rem, 7vw, 5.7rem); font-weight: 900; letter-spacing: -4px; line-height: 1; }
+    .fact-panel h3 { margin: 12px 0 8px; font-size: 1.4rem; }
+    .fact-panel p { color: #d2def0; margin: 0; }
+    .fact-list { display: grid; gap: 18px; }
+    .fact-item { display: flex; gap: 15px; align-items: flex-start; }
+    .check { background: var(--yellow); color: var(--navy); flex: 0 0 30px; width: 30px; height: 30px; display: grid; place-items: center; border-radius: 9px; font-weight: 900; }
+    .fact-item h3 { margin: 0 0 4px; font-size: 1.05rem; }
+    .fact-item p { color: #c7d3e8; margin: 0; }
+    .tips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .tip { display: flex; gap: 16px; align-items: flex-start; padding: 22px; background: white; border: 1px solid var(--line); border-radius: 17px; }
+    .tip-number { flex: 0 0 38px; height: 38px; border-radius: 12px; background: var(--yellow); display: grid; place-items: center; font-weight: 900; color: var(--navy); }
+    .tip h3 { margin: 2px 0 5px; color: var(--navy); }
+    .tip p { margin: 0; color: var(--muted); }
+    .law { background: #fff7d6; border: 1px solid #f1df92; padding: 23px 25px; border-radius: 17px; margin-top: 25px; }
+    .law strong { color: #604b00; }
+    .quiz-wrap { background: linear-gradient(135deg, #eaf1ff, #fff); border: 1px solid #d8e3fb; border-radius: 24px; padding: 30px; max-width: 760px; }
+    .quiz-wrap h3 { color: var(--navy); margin-top: 0; font-size: 1.45rem; }
+    .answers { display: grid; gap: 10px; margin: 18px 0; }
+    .answer {
+      text-align: left; border: 2px solid #dbe3f2; background: white; padding: 14px 16px;
+      border-radius: 12px; cursor: pointer; font: inherit; font-weight: 700; color: var(--ink);
+    }
+    .answer:hover { border-color: var(--blue); }
+    .answer.correct { border-color: #18844a; background: #e7f8ee; }
+    .answer.wrong { border-color: #d74343; background: #fff0f0; }
+    #quiz-feedback { font-weight: 800; min-height: 28px; }
+    .cta { background: var(--yellow); text-align: center; }
+    .cta h2 { max-width: 740px; margin: 0 auto 16px; }
+    .cta p { max-width: 650px; margin: 0 auto 25px; color: #4d4a37; font-size: 1.08rem; }
+    .cta .button { background: var(--navy); }
+    footer { background: #0b182c; color: #c1cde0; padding: 28px 24px; }
+    .footer-inner { max-width: 1100px; margin: auto; display: flex; justify-content: space-between; gap: 15px; flex-wrap: wrap; font-size: .9rem; }
+    .footer-inner strong { color: white; }
+    .source-note { font-size: .84rem; color: #c7d3e8; margin-top: 20px; }
+    @media (max-width: 780px) {
+      .nav { flex-wrap: wrap; }
+      nav { order: 3; width: 100%; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+      nav a { font-size: .85rem; }
+      .nav > .button { padding: 10px 13px; }
+      .hero-inner { grid-template-columns: 1fr; padding-top: 58px; gap: 20px; }
+      .hero-art { min-height: 300px; }
+      .cards { grid-template-columns: 1fr; }
+      .fact-grid { grid-template-columns: 1fr; gap: 30px; }
+      .tips { grid-template-columns: 1fr; }
+      section { padding: 58px 20px; }
+      h1 { letter-spacing: -2px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *:before, *:after { transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>🚦 Veilig verkeer begint bij jouw aandacht</span>
+    <span>Leg je gsm weg. Kijk vooruit.</span>
+  </div>
+  <header>
+    <div class="nav">
+      <a class="brand" href="#home"><span class="brand-mark">F</span> Focus op de Weg</a>
+      <nav aria-label="Hoofdnavigatie">
+        <a href="#gevaren">De gevaren</a>
+        <a href="#feiten">Feiten</a>
+        <a href="#tips">Tips</a>
+        <a href="#quiz">Quiz</a>
+      </nav>
+      <a class="button" href="#tips">Rij bewust <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-inner">
+        <div>
+          <span class="eyebrow">⚠️ Één melding kan afleiden</span>
+          <h1>Ogen op de weg.<br><span>Gsm weg.</span></h1>
+          <p>Een berichtje kan wachten. Jouw aandacht in het verkeer is onmisbaar — voor jezelf én voor iedereen om je heen.</p>
+          <div class="hero-buttons">
+            <a class="button yellow" href="#gevaren">Ontdek de gevaren ↓</a>
+            <a class="button" href="#tips" style="background:#ffffff18;border:1px solid #ffffff55">Bekijk de tips</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Illustratie van een smartphone met een verbodsteken">
+          <div class="circle">
+            <div class="phone">
+              <div class="phone-icon">📱</div>
+              <div class="phone-label">MELDING<br>ONTvANGEN</div>
+              <div class="no-symbol"></div>
+            </div>
+          </div>
+          <div class="floating-note note-one">👀 Blijf alert</div>
+          <div class="floating-note note-two">🛑 Eerst veilig aankomen</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gevaren">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Waarom opletten?</span>
+          <h2>Je aandacht hoort bij het verkeer.</h2>
+          <p>Je gsm gebruiken haalt je aandacht weg van wat er rondom je gebeurt. Zelfs een korte blik kan betekenen dat je belangrijke informatie mist.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon">👁️</div>
+            <h3>Je kijkt niet vooruit</h3>
+            <p>Terwijl je naar een scherm kijkt, kun je een remmende auto, fietser of voetganger te laat opmerken.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">🧠</div>
+            <h3>Je bent minder gefocust</h3>
+            <p>Een gesprek of bericht vraagt denkwerk. Daardoor merk je verkeerssituaties mogelijk minder snel op.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">⏱️</div>
+            <h3>Je reageert later</h3>
+            <p>Als je aandacht verdeeld is, kan het langer duren voor je op een onverwachte situatie reageert.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="feiten">
+      <div class="container fact-grid">
+        <div class="section-heading" style="margin:0">
+          <span class="kicker" style="color:var(--yellow)">Even stilstaan</span>
+          <h2>Verkeer vraagt je volledige aandacht.</h2>
+          <p>Besturen, fietsen en deelnemen aan het verkeer betekent voortdurend kijken, luisteren, inschatten en reageren. Een smartphone maakt dat moeilijker.</p>
+        </div>
+        <div class="fact-panel">
+          <div class="big-stat">100%</div>
+          <h3>Jouw aandacht telt</h3>
+          <p>Dit is een campagnemotto, geen gemeten statistiek. Het herinnert je eraan om je aandacht bij het verkeer te houden.</p>
+        </div>
+      </div>
+      <div class="container" style="margin-top:38px">
+        <div class="fact-list">
+          <div class="fact-item"><span class="check">✓</span><div><h3>Afleiding gaat verder dan kijken</h3><p>Ook praten, typen of nadenken over een bericht kan je concentratie verstoren.</p></div></div>
+          <div class="fact-item"><span class="check">✓</span><div><h3>Iedere weggebruiker telt</h3><p>Automobilisten, fietsers en voetgangers hebben allemaal aandacht nodig om veilig deel te nemen aan het verkeer.</p></div></div>
+          <div class="fact-item"><span class="check">✓</span><div><h3>Een bericht kan wachten</h3><p>Kom eerst veilig aan of stop op een veilige, toegestane plek voordat je je gsm gebruikt.</p></div></div>
+        </div>
+        <p class="source-note">Voor actuele cijfers kun je informatie raadplegen bij Vias institute en de Belgische verkeersveiligheidsdiensten.</p>
+      </div>
+    </section>
+
+    <section id="tips">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Maak het jezelf makkelijk</span>
+          <h2>Vier gewoontes voor een veiligere rit.</h2>
+          <p>Je hoeft niet op je wilskracht te vertrouwen. Maak afleiding vooraf zo moeilijk mogelijk.</p>
+        </div>
+        <div class="tips">
+          <article class="tip"><span class="tip-number">1</span><div><h3>Zet meldingen uit</h3><p>Schakel ‘Niet storen tijdens het rijden’ in of zet je gsm op stil voordat je vertrekt.</p></div></article>
+          <article class="tip"><span class="tip-number">2</span><div><h3>Leg je gsm uit het zicht</h3><p>Stop je telefoon veilig weg, zodat je niet in de verleiding komt om te kijken.</p></div></article>
+          <article class="tip"><span class="tip-number">3</span><div><h3>Stel je route vooraf in</h3><p>Kies je bestemming en regel je navigatie vóór je vertrekt. Stop veilig als je iets moet aanpassen.</p></div></article>
+          <article class="tip"><span class="tip-number">4</span><div><h3>Wacht op een veilige plek</h3><p>Moet je echt bellen of iets nakijken? Doe dat pas wanneer je veilig stilstaat op een toegestane plek.</p></div></article>
+        </div>
+        <div class="law">
+          <strong>🇧🇪 Weet je dit?</strong>
+          In België gelden regels voor het vasthouden en gebruiken van elektronische apparaten met een scherm tijdens het rijden. De precieze toepassing kan afhangen van de situatie en het voertuig. Controleer de actuele regels via de officiële Belgische overheidsinformatie; gebruik je gsm nooit op een manier die je afleidt.
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" style="background:#fff">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Test jezelf</span>
+          <h2>Wat kies jij?</h2>
+          <p>Beantwoord de vraag en ontdek de veiligste keuze.</p>
+        </div>
+        <div class="quiz-wrap">
+          <h3>Je krijgt een bericht terwijl je onderweg bent. Wat doe je?</h3>
+          <div class="answers">
+            <button class="answer" data-correct="false">A. Snel even kijken, dat duurt maar een seconde.</button>
+            <button class="answer" data-correct="true">B. Ik laat het liggen en kijk pas wanneer ik veilig ben aangekomen of veilig gestopt ben.</button>
+            <button class="answer" data-correct="false">C. Ik typ een antwoord terwijl ik verder rijd.</button>
+          </div>
+          <p id="quiz-feedback" aria-live="polite"></p>
+          <button class="button" id="quiz-reset" type="button">Opnieuw proberen ↻</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <h2>Laat je gsm wachten. Niet je veiligheid.</h2>
+        <p>Elke rit verdient jouw aandacht. Maak van veilig onderweg zijn een gewoonte en geef het goede voorbeeld.</p>
+        <a class="button" href="#home">Ik kies voor focus ↑</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span><strong>Focus op de Weg</strong> — aandacht maakt het verschil.</span>
+      <span>Educatieve website over gsm-gebruik in het verkeer.</span>
+    </div>
+  </footer>
+  <script>
+    const answers = document.querySelectorAll('.answer');
+    const feedback = document.getElementById('quiz-feedback');
+    answers.forEach((answer) => {
+      answer.addEventListener('click', () => {
+        answers.forEach((button) => {
+          button.classList.remove('correct', 'wrong');
+          button.disabled = false;
+        });
+        if (answer.dataset.correct === 'true') {
+          answer.classList.add('correct');
+          feedback.textContent = 'Juist! Je aandacht hoort bij het verkeer. Een bericht kan wachten.';
+          answers.forEach((button) => button.disabled = true);
+        } else {
+          answer.classList.add('wrong');
+          feedback.textContent = 'Niet helemaal. Kies ervoor om pas te kijken wanneer je veilig bent.';
+        }
+      });
+    });
+    document.getElementById('quiz-reset').addEventListener('click', () => {
+      answers.forEach((button) => {
+        button.classList.remove('correct', 'wrong');
+        button.disabled = false;
+      });
+      feedback.textContent = '';
+    });
+  </script>
+</body>
+</html>
